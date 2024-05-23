@@ -15,6 +15,8 @@ class DQNAgent:
         self.epsilon_decay   = 0.995
         self.batch_size      = 64
         self.model = self._build_model()
+        self.rewards_history = []
+        self.loss_history    = []
 
     def _build_model(self):
         model = tf.keras.Sequential([
@@ -55,7 +57,9 @@ class DQNAgent:
         next_state_targets = rewards + (1 - dones) * self.gamma * np.amax(self.model.predict(next_states), axis=1)
         targets[np.arange(self.batch_size), actions] = next_state_targets
 
-        self.model.fit(states, targets, epochs=1, verbose=0)
+        history = self.model.fit(states, targets, epochs=1, verbose=0)
+        loss = history.history['loss'][0]
+        self.loss_history.append(loss)
 
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
