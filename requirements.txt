@@ -1,0 +1,5 @@
+tensorflow==2.16.1
+numpy==1.26.4
+pandas==2.2.2
+swig
+gymnasium[box2d]==1.0.0a2
