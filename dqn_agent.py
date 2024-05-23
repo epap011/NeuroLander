@@ -40,6 +40,7 @@ class DQNAgent:
 
     def replay(self):
         if len(self.memory) < self.batch_size:
+            print("Not enough memory to replay")
             return
 
         minibatch = random.sample(self.memory, self.batch_size)

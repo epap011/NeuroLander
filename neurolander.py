@@ -5,14 +5,14 @@ from dqn_agent import DQNAgent
 def train_agent(agent, env, num_episodes):
     for episode in range(num_episodes):
         state, _ = env.reset()
-        state = np.reshape(state, [1, agent.state_shape[0]])  # Reshape to remove extra dimension
+        state = np.reshape(state, [1, agent.state_shape[0]])
         total_reward = 0
         done = False
 
         while not done:
             action = agent.act(state)
             next_state, reward, done, _, _ = env.step(action)
-            next_state = np.reshape(next_state, [1, agent.state_shape[0]])  # Reshape to remove extra dimension
+            next_state = np.reshape(next_state, [1, agent.state_shape[0]])
             agent.remember(state, action, reward, next_state, done)
             state = next_state
             total_reward += reward
